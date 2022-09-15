@@ -4,6 +4,7 @@ from pizzaapp.forms import PizzaForm
 from django.views.generic import TemplateView
 from django.contrib.messages.views import messages
 from pizzaapp.models import Pizza
+from django.template.response import TemplateResponse
 
 # Create your views here.
 
@@ -38,12 +39,12 @@ def add(request):
                 cart.remove(item)
                 break
         form = PizzaForm()
-        return redirect("add")
+        return redirect('add')
 
     elif request.POST.get('clear') == 'Clear All':
         cart.clear()
         form = PizzaForm()
-        return redirect("add")
+        return redirect('add')
 
     else:
         form = PizzaForm()
@@ -52,4 +53,4 @@ def add(request):
         'form': form,
         'cart': cart,
     }
-    return render(request, 'pizzaapp/add.html', context)
+    return TemplateResponse(request, 'pizzaapp/add.html', context)
