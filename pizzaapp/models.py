@@ -42,3 +42,13 @@ class Pizza(models.Model):
         """Return a string representation of the model."""
         return f"{self.size} pizza with {self.toppings}"
 
+
+class Cart(models.Model):
+    """A pizza that can be ordered."""
+
+    size = models.ForeignKey(Size, on_delete=models.CASCADE, default=2, null=False)
+    toppings = MultiSelectField(max_length=100, choices=TOPPINGS, null=False, blank=False, default=EMPTY_LIST, max_choices=3)
+
+    def __str__(self):
+        """Return a string representation of the model."""
+        return f"{self.size} pizza with {self.toppings}"

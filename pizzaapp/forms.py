@@ -1,11 +1,11 @@
 from django import forms
-from pizzaapp.models import Pizza
+from pizzaapp.models import Cart, Pizza
 
 class PizzaForm(forms.ModelForm):
     """Form for ordering a pizza."""
 
     class Meta:
-        model = Pizza
+        model = Cart
         fields = '__all__'
 
         widgets = {
