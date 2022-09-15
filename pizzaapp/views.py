@@ -38,10 +38,12 @@ def add(request):
                 cart.remove(item)
                 break
         form = PizzaForm()
+        return redirect("add")
 
     elif request.POST.get('clear') == 'Clear All':
         cart.clear()
         form = PizzaForm()
+        return redirect("add")
 
     else:
         form = PizzaForm()
