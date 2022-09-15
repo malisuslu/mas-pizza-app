@@ -15,11 +15,8 @@ class home(TemplateView):
 cart = []
 def add(request):
     """Add to cart."""
-       
-    if request.method == "GET":
-        form = PizzaForm()
     
-    elif request.POST.get('addToCart') == 'Add to Cart':
+    if request.POST.get('addToCart') == 'Add to Cart':
         form = PizzaForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
@@ -46,7 +43,8 @@ def add(request):
         cart.clear()
         form = PizzaForm()
 
-
+    else:
+        form = PizzaForm()
 
     context = {
         'form': form,
