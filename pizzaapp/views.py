@@ -23,6 +23,8 @@ def add(request):
             data = form.cleaned_data
             data["id"] = str(uuid.uuid4())
             cart.append(data)
+            form = PizzaForm()
+            messages.success(request, "Added to cart!")
 
     elif request.POST.get('submit') == 'Checkout':
         for item in cart:
