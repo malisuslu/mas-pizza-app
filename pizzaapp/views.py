@@ -16,7 +16,7 @@ class home(TemplateView):
 cart = []
 def add(request):
     """Add to cart."""
-    
+    global cart
     if request.POST.get('addToCart') == 'Add to Cart':
         form = PizzaForm(request.POST)
         if form.is_valid():
