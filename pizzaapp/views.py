@@ -23,7 +23,6 @@ def add(request):
             data = form.cleaned_data
             data["id"] = str(uuid.uuid4())
             cart.append(data)
-            return redirect('add')
 
     elif request.POST.get('submit') == 'Checkout':
         for item in cart:
@@ -31,7 +30,6 @@ def add(request):
         cart.clear()
         form = PizzaForm()
         messages.success(request, 'Your order has been submitted!')
-        return redirect('add')
 
     elif request.POST.get('remove') != None:
         for item in cart:
@@ -39,12 +37,10 @@ def add(request):
                 cart.remove(item)
                 break
         form = PizzaForm()
-        return redirect('add')
 
     elif request.POST.get('clear') == 'Clear All':
         cart.clear()
         form = PizzaForm()
-        return redirect('add')
 
     else:
         form = PizzaForm()
