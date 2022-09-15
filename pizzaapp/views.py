@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from pizzaapp.forms import PizzaForm
 from django.views.generic import TemplateView
 from django.contrib.messages.views import messages
-from pizzaapp.models import Pizza, Cart
+from pizzaapp.models import Pizza
 from django.template.response import TemplateResponse
 
 # Create your views here.
@@ -16,7 +16,7 @@ class home(TemplateView):
 
 def add(request):
     """Add to cart."""
-    cart = Cart.objects.all()
+    cart = Pizza.objects.filter(is_ordered=False)
 
     if request.POST.get('addToCart') == 'Add to Cart':
         form = PizzaForm(request.POST)
@@ -28,19 +28,19 @@ def add(request):
 
     elif request.POST.get('submit') == 'Checkout':
         for item in cart:
-            Pizza.objects.create(size=item.size, toppings=item.toppings)
-        Cart.objects.all().delete()
+            item.is_ordered = True
+            item.save()
         form = PizzaForm()
         messages.success(request, 'Your order has been submitted!')
         return redirect('add')
 
     elif request.POST.get('remove') != None:
-        Cart.objects.filter(id=request.POST.get('remove')).delete()
+        Pizza.objects.filter(id=request.POST.get('remove')).delete()
         form = PizzaForm()
         messages.success(request, 'Pizza removed from cart!')
         
     elif request.POST.get('clear') == 'Clear All':
-        Cart.objects.all().delete()
+        Pizza.objects.all().delete()
         form = PizzaForm()
 
     else:
