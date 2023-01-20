@@ -4,8 +4,8 @@
         <a href="{% url 'home' %}">S'Garden Pizza</a>
     </Nav>
     <form method="POST" class=" mt-16 max-w-xs mx-auto bg-indigo-500 bg-opacity-80 p-8 rounded-3xl text-white">
-        <h1 class="text-center w-fit mx-auto text-3xl text-white">Place Your Order</h1>
         {% csrf_token %}
+        <h1 class="text-center w-fit mx-auto text-3xl text-white">Place Your Order</h1>
         {{ form.as_p }}
         <button
             type="submit"
