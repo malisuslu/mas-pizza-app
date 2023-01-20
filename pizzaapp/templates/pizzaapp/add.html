@@ -4,8 +4,8 @@
         <a href="{% url 'home' %}">S'Garden Pizza</a>
     </Nav>
     <form method="POST" class=" mt-16 max-w-xs mx-auto bg-indigo-500 bg-opacity-80 p-8 rounded-3xl text-white">
-        {% csrf_token %}
         <h1 class="text-center w-fit mx-auto text-3xl text-white">Place Your Order</h1>
+        {% csrf_token %}
         {{ form.as_p }}
         <button
             type="submit"
@@ -24,12 +24,12 @@
                 {% for item in cart %}
                     <li class="flex flex-row justify-between">
                         <div>
-                            <span class="text-white">{{ forloop.counter }}</span>-{{ item.size }} size Pizza with {{ item.toppings.0 }}
-                            {% if item.toppings.1 %}
-                            and {{ item.toppings.1 }}
+                            <span class="text-white">{{ forloop.counter }}</span>-{{ item.size }} size Pizza with {{ item.topping1 }}
+                            {% if item.topping2 %}
+                            and {{ item.topping2 }}
                             {% endif %}
-                            {% if item.toppings.2 %}
-                            and {{ item.toppings.2 }}
+                            {% if item.topping3 %}
+                            and {{ item.topping3 }}
                             {% endif %}
                         </div>
                         <button type="submit" name="remove" value="{{ item.id }}" class="text-red-500">❌</button>

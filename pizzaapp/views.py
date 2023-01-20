@@ -21,9 +21,16 @@ def add(request):
     if request.POST.get('addToCart') == 'Add to Cart':
         form = PizzaForm(request.POST)
         if form.is_valid():
-            form.save()
+            # assign selected toppings to variables topping1, topping2, and topping3 and save them to the database if they are selected
             form.cleaned_data["id"] = str(uuid.uuid4())
-            form = PizzaForm()
+            size = form.cleaned_data['size']
+            if len(form.cleaned_data['toppings']) > 3:
+                messages.error(request, 'You can only select up to 3 toppings!')
+            else:
+                topping1 = form.cleaned_data['toppings'][0] if len(form.cleaned_data['toppings']) > 0 else None
+                topping2 = form.cleaned_data['toppings'][1] if len(form.cleaned_data['toppings']) > 1 else None
+                topping3 = form.cleaned_data['toppings'][2] if len(form.cleaned_data['toppings']) > 2 else None
+                Pizza.objects.create(size=size, topping1=topping1, topping2=topping2, topping3=topping3, is_ordered=False)
             messages.success(request, 'Pizza added to cart!')
 
     elif request.POST.get('submit') == 'Checkout':
@@ -36,15 +43,13 @@ def add(request):
 
     elif request.POST.get('remove') != None:
         Pizza.objects.filter(id=request.POST.get('remove')).delete()
-        form = PizzaForm()
         messages.success(request, 'Pizza removed from cart!')
         
     elif request.POST.get('clear') == 'Clear All':
         Pizza.objects.all().delete()
-        form = PizzaForm()
-
-    else:
-        form = PizzaForm()
+        
+    form = PizzaForm()
+    
 
     context = {
         'form': form,
