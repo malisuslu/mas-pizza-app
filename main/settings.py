@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = config('DEBUG', default=True, cast=bool)
 
 ALLOWED_HOSTS = ['*']
 
@@ -36,20 +36,20 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_REPLACE_HTTPS_REFERER = True
 
 CORS_ORIGIN_WHITELIST = (
-    'https://mas-register-app.vercel.app',
-    'http://mas-register-app.vercel.app',
-    'https://mas-register-app.up.railway.app',
-    'http://mas-register-app.up.railway.app',
+    'https://mas-pizza-app.vercel.app',
+    'http://mas-pizza-app.vercel.app',
+    'https://mas-pizza-app.up.railway.app',
+    'http://mas-pizza-app.up.railway.app',
     'https://railway.app/',
     'http://*',
     'https://*',
 )
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://mas-register-app.vercel.app',
-    'http://mas-register-app.vercel.app',
-    'https://mas-register-app.up.railway.app',
-    'http://mas-register-app.up.railway.app',
+    'https://mas-pizza-app.vercel.app',
+    'http://mas-pizza-app.vercel.app',
+    'https://mas-pizza-app.up.railway.app',
+    'http://mas-pizza-app.up.railway.app',
     'https://railway.app/',
     'http://*',
     'https://*',
@@ -58,13 +58,13 @@ CSRF_TRUSTED_ORIGINS = [
 # Application definition
 
 INSTALLED_APPS = [
+    'pizzaapp',   
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'pizzaapp',
     'django_browser_reload',
     # 'multiselectfield',
 ]
