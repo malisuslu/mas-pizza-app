@@ -27,11 +27,26 @@ def add(request):
             if len(form.cleaned_data['toppings']) > 3:
                 messages.error(request, 'You can only select up to 3 toppings!')
             else:
-                topping1 = form.cleaned_data['toppings'][0] if len(form.cleaned_data['toppings']) > 0 else None
-                topping2 = form.cleaned_data['toppings'][1] if len(form.cleaned_data['toppings']) > 1 else None
-                topping3 = form.cleaned_data['toppings'][2] if len(form.cleaned_data['toppings']) > 2 else None
-                Pizza.objects.create(size=size, topping1=topping1, topping2=topping2, topping3=topping3, is_ordered=False)
+                if len(form.cleaned_data['toppings']) == 1:
+                    topping1 = form.cleaned_data['toppings'][0]
+                    topping2 = None
+                    topping3 = None
+                elif len(form.cleaned_data['toppings']) == 2:
+                    topping1 = form.cleaned_data['toppings'][0]
+                    topping2 = form.cleaned_data['toppings'][1]
+                    topping3 = None
+                elif len(form.cleaned_data['toppings']) == 3:
+                    topping1 = form.cleaned_data['toppings'][0]
+                    topping2 = form.cleaned_data['toppings'][1]
+                    topping3 = form.cleaned_data['toppings'][2]
+                else:
+                    topping1 = None
+                    topping2 = None
+                    topping3 = None
+                form.save()
+                Pizza.objects.create(size=size, topping1=topping1, topping2=topping2, topping3=topping3)
             messages.success(request, 'Pizza added to cart!')
+            return redirect('add')
 
     elif request.POST.get('submit') == 'Checkout':
         for item in cart:

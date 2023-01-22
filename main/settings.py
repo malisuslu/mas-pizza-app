@@ -25,11 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=True, cast=bool)
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = ['*']
-
-CORS_ALLOW_CREDENTIALS = True
 
 CORS_ORIGIN_ALLOW_ALL = True
 
@@ -38,12 +36,24 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_REPLACE_HTTPS_REFERER = True
 
 CORS_ORIGIN_WHITELIST = (
-    'https://web-production-bc9c.up.railway.app',
+    'https://mas-register-app.vercel.app',
+    'http://mas-register-app.vercel.app',
+    'https://mas-register-app.up.railway.app',
+    'http://mas-register-app.up.railway.app',
     'https://railway.app/',
-    '*',
+    'http://*',
+    'https://*',
 )
 
-CSRF_TRUSTED_ORIGINS = ['https://web-production-bc9c.up.railway.app', 'http://*', 'https://*']
+CSRF_TRUSTED_ORIGINS = [
+    'https://mas-register-app.vercel.app',
+    'http://mas-register-app.vercel.app',
+    'https://mas-register-app.up.railway.app',
+    'http://mas-register-app.up.railway.app',
+    'https://railway.app/',
+    'http://*',
+    'https://*',
+]
 
 # Application definition
 
@@ -97,11 +107,15 @@ WSGI_APPLICATION = 'main.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        #'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': config('PASSWORD'),
+        'HOST': 'containers-us-west-184.railway.app',
+        'PORT': '7684',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
