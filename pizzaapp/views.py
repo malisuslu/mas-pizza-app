@@ -43,7 +43,6 @@ def add(request):
                     topping1 = None
                     topping2 = None
                     topping3 = None
-                form.save()
                 Pizza.objects.create(size=size, topping1=topping1, topping2=topping2, topping3=topping3)
             messages.success(request, 'Pizza added to cart!')
             return redirect('add')
