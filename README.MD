@@ -68,7 +68,7 @@ $ git clone https://github.com/malisuslu/mas-pizza-app.git
 ```
 
 ## Acknowledgements
-- This is my second app with Django. Styling made by Tailwind PostgreSQL DB is created on Railway, and the app deployed to Vercel for page preview...
+- This is my second app with Django. Styling made by Tailwind, PostgreSQL DB is created on ElephantSQL, and the app deployed to Vercel for page preview...
 
 ## Contact
 
